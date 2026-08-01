@@ -45,6 +45,8 @@
 adb install -r -t app-debug.apk
 adb shell pm grant com.floatingball android.permission.WRITE_SECURE_SETTINGS
 adb shell dumpsys deviceidle whitelist +com.floatingball
+adb shell cmd appops set com.floatingball RUN_IN_BACKGROUND allow
+adb shell cmd appops set com.floatingball RUN_ANY_IN_BACKGROUND allow
 ```
 
 然后开启无障碍服务、悬浮窗权限、自启动，电池设为"无限制"。

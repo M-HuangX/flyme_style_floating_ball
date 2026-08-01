@@ -50,6 +50,8 @@ A floating navigation ball for **Xiaomi HyperOS 3 (Android 16)**. Trigger Back, 
 adb install -r -t app-debug.apk
 adb shell pm grant com.floatingball android.permission.WRITE_SECURE_SETTINGS
 adb shell dumpsys deviceidle whitelist +com.floatingball
+adb shell cmd appops set com.floatingball RUN_IN_BACKGROUND allow
+adb shell cmd appops set com.floatingball RUN_ANY_IN_BACKGROUND allow
 ```
 
 Then: enable Accessibility Service → grant overlay permission → enable Autostart → set battery to "No restrictions".
