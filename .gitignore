@@ -1,0 +1,22 @@
+*.iml
+.gradle/
+build/
+.idea/
+local.properties
+*.apk
+*.jks
+*.keystore
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+*.log
+.DS_Store
+
+# Internal diagnostic tools (keep locally, not public)
+tools/
+ANDROID_EXIT_DETECTION_SOLUTION.md
+
+# IDE
+*.swp
+*.swo

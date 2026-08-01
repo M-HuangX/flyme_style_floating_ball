@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="action_labels">
+        <item>@string/action_back</item>
+        <item>@string/action_home</item>
+        <item>@string/action_recents</item>
+        <item>@string/action_notifications</item>
+        <item>@string/action_quick_settings</item>
+        <item>@string/action_screenshot</item>
+        <item>@string/action_lock_screen</item>
+        <item>@string/action_one_handed</item>
+        <item>@string/action_none</item>
+    </string-array>
+    <string-array name="action_values">
+        <item>BACK</item>
+        <item>HOME</item>
+        <item>RECENTS</item>
+        <item>NOTIFICATIONS</item>
+        <item>QUICK_SETTINGS</item>
+        <item>SCREENSHOT</item>
+        <item>LOCK_SCREEN</item>
+        <item>ONE_HANDED</item>
+        <item>NONE</item>
+    </string-array>
+    <string-array name="strategy_labels">
+        <item>@string/strategy_settings</item>
+        <item>@string/strategy_gesture</item>
+    </string-array>
+    <string-array name="strategy_values">
+        <item>settings</item>
+        <item>gesture</item>
+    </string-array>
+</resources>

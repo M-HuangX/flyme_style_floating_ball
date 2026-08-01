@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Floating Ball</string>
+    <string name="settings_title">Settings</string>
+    <string name="accessibility_service_description">
+        Floating Ball provides a convenient floating navigation ball that lets you
+        perform Back, Home, Notifications, One-Handed Mode, and other actions with
+        simple gestures. This service requires accessibility access to perform
+        global actions and simulate one-handed mode gestures on HyperOS devices.
+    </string>
+    <string name="notification_channel_name">Floating Ball Service</string>
+    <string name="notification_channel_description">
+        Persistent notification required to keep the floating ball running.
+    </string>
+    <string name="notification_title">Floating Ball is running</string>
+    <string name="notification_text">Tap to configure</string>
+    <string name="service_running">Service: Running</string>
+    <string name="service_stopped">Service: Not Running</string>
+    <string name="enable_accessibility">Enable Accessibility Service</string>
+    <string name="grant_overlay">Grant Overlay Permission</string>
+    <string name="battery_optimization">Disable Battery Optimization</string>
+    <string name="enable_autostart">Enable Autostart</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="hyperos_guide_title">HyperOS Setup Guide</string>
+    <string name="hyperos_guide_text">
+        1. Enable Accessibility Service\n
+        2. Grant \"Display over other apps\" permission\n
+        3. Set Battery to \"No restrictions\"\n
+        4. Enable Autostart\n
+        5. Lock app in Recent tasks (swipe down on app card → tap lock icon)
+    </string>
+    <string name="pref_category_appearance">Appearance</string>
+    <string name="pref_category_gestures">Gestures</string>
+    <string name="pref_category_onehanded">One-Handed Mode</string>
+    <string name="pref_ball_size">Ball Size</string>
+    <string name="pref_ball_opacity">Ball Opacity</string>
+    <string name="pref_click_action">Click Action</string>
+    <string name="pref_double_click_action">Double-Click Action</string>
+    <string name="pref_swipe_up_action">Swipe Up Action</string>
+    <string name="pref_swipe_down_action">Swipe Down Action</string>
+    <string name="pref_onehanded_strategy">Trigger Strategy</string>
+    <string name="strategy_settings">Settings.Secure (preferred)</string>
+    <string name="strategy_gesture">Gesture simulation (fallback)</string>
+    <string name="action_back">Back</string>
+    <string name="action_home">Home</string>
+    <string name="action_recents">Recent Apps</string>
+    <string name="action_notifications">Notifications</string>
+    <string name="action_quick_settings">Quick Settings</string>
+    <string name="action_screenshot">Screenshot</string>
+    <string name="action_lock_screen">Lock Screen</string>
+    <string name="action_one_handed">One-Handed Mode</string>
+    <string name="action_none">None</string>
+    <string name="pref_swipe_left_action">Swipe Left Action</string>
+    <string name="pref_swipe_right_action">Swipe Right Action</string>
+</resources>

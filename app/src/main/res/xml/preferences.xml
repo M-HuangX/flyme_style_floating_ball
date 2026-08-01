@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Ball Appearance">
+        <SeekBarPreference
+            android:key="ball_size_dp"
+            android:title="Ball Size (dp)"
+            android:defaultValue="38"
+            android:min="26"
+            android:max="56"
+            app:showSeekBarValue="true" />
+        <SeekBarPreference
+            android:key="ball_outer_opacity"
+            android:title="Outer Circle Opacity %"
+            android:defaultValue="55"
+            android:min="10"
+            android:max="100"
+            app:showSeekBarValue="true" />
+        <SeekBarPreference
+            android:key="ball_inner_opacity"
+            android:title="Inner Circle Opacity %"
+            android:defaultValue="92"
+            android:min="10"
+            android:max="100"
+            app:showSeekBarValue="true" />
+        <SeekBarPreference
+            android:key="ball_radius_ratio"
+            android:title="Inner/Outer Radius Ratio %"
+            android:defaultValue="73"
+            android:min="50"
+            android:max="95"
+            app:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="One-Handed Mode">
+        <SeekBarPreference
+            android:key="one_handed_offset_pct"
+            android:title="Screen Shift Offset %"
+            android:summary="How much the screen shifts down. Adjust if ball compensation is off."
+            android:defaultValue="40"
+            android:min="20"
+            android:max="50"
+            app:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Auto-Hide">
+        <SwitchPreference
+            android:key="auto_hide_enabled"
+            android:title="Auto-hide in fullscreen"
+            android:summary="Hide ball when selected apps enter fullscreen mode"
+            android:defaultValue="true" />
+        <!-- App picker disabled: orientation-based detection used instead.
+        <Preference
+            android:key="auto_hide_apps"
+            android:title="Select Apps"
+            android:summary="Choose which apps trigger auto-hide when fullscreen" />
+        -->
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Gestures">
+        <ListPreference
+            android:key="action_click"
+            android:title="Click"
+            android:defaultValue="BACK"
+            android:entries="@array/action_labels"
+            android:entryValues="@array/action_values" />
+        <ListPreference
+            android:key="action_double_click"
+            android:title="Double-Click"
+            android:defaultValue="ONE_HANDED"
+            android:entries="@array/action_labels"
+            android:entryValues="@array/action_values" />
+        <ListPreference
+            android:key="action_swipe_up"
+            android:title="Swipe Up"
+            android:defaultValue="HOME"
+            android:entries="@array/action_labels"
+            android:entryValues="@array/action_values" />
+        <ListPreference
+            android:key="action_swipe_down"
+            android:title="Swipe Down"
+            android:defaultValue="NOTIFICATIONS"
+            android:entries="@array/action_labels"
+            android:entryValues="@array/action_values" />
+        <ListPreference
+            android:key="action_swipe_left"
+            android:title="Swipe Left"
+            android:defaultValue="QUICK_SETTINGS"
+            android:entries="@array/action_labels"
+            android:entryValues="@array/action_values" />
+        <ListPreference
+            android:key="action_swipe_right"
+            android:title="Swipe Right"
+            android:defaultValue="RECENTS"
+            android:entries="@array/action_labels"
+            android:entryValues="@array/action_values" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
