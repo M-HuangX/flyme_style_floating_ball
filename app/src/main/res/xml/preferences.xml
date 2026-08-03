@@ -46,16 +46,20 @@
 
     <PreferenceCategory android:title="Auto-Hide">
         <SwitchPreference
-            android:key="auto_hide_enabled"
-            android:title="Auto-hide in fullscreen"
-            android:summary="Hide ball when selected apps enter fullscreen mode"
+            android:key="hide_in_landscape"
+            android:title="Hide in landscape"
+            android:summary="Auto-hide ball when device is rotated to landscape"
             android:defaultValue="true" />
-        <!-- App picker disabled: orientation-based detection used instead.
-        <Preference
-            android:key="auto_hide_apps"
-            android:title="Select Apps"
-            android:summary="Choose which apps trigger auto-hide when fullscreen" />
-        -->
+        <SwitchPreference
+            android:key="hide_on_lockscreen"
+            android:title="Hide on lock screen"
+            android:summary="Auto-hide ball when device is locked"
+            android:defaultValue="true" />
+        <SwitchPreference
+            android:key="avoid_keyboard"
+            android:title="Avoid keyboard"
+            android:summary="Move ball above keyboard when typing"
+            android:defaultValue="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Gestures">

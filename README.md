@@ -35,7 +35,8 @@ A floating navigation ball for **Xiaomi HyperOS 3 (Android 16)**. Trigger Back, 
 
 - One-handed mode with auto ball position compensation + external exit detection
 - Flyme-style inner circle swipe animation
-- Auto-hide in landscape (video, camera)
+- Auto-hide in landscape, on lock screen, and when keyboard appears
+- Keyboard avoidance: ball moves above keyboard when typing
 - Fully customizable (size, opacity, ratio, gesture actions)
 - Persistent foreground service with 15s health checks
 
