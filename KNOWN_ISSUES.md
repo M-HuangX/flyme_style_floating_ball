@@ -56,23 +56,71 @@ When an app is flagged as test-only, the HyperOS framework treats it similarly t
 
 ---
 
-## 2. Lock Screen Auto-Hide (ABANDONED)
+## 2. Lock Screen Auto-Hide (SOLVED — v1.9)
 
-### Attempts
+### The Problem
 
-| Method | Result |
-|--------|--------|
-| `ACTION_USER_PRESENT` broadcast | HyperOS blocks this broadcast unless Autostart is enabled |
-| `ACTION_SCREEN_ON` + `KeyguardManager.isKeyguardLocked()` | KeyguardManager returns incorrect values on HyperOS |
-| Handler polling with `isDeviceLocked()` + `isInteractive()` | Unreliable timing, false positives |
+Initially thought HyperOS blocked lock screen detection. All early attempts appeared to fail.
 
-### Conclusion
+### The Real Issue
 
-No reliable method found for HyperOS. Feature removed to save power. The ball remains visible on the lock screen.
+Three misconceptions were debunked by diagnostic instrumentation on the target device:
+
+1. `ACTION_USER_PRESENT` was missed because the `BroadcastReceiver` was not registered with `RECEIVER_EXPORTED`. With the correct flag, it fires reliably.
+2. `KeyguardManager.isKeyguardLocked()` works correctly — we were using `isDeviceLocked()` which has different semantics (false when Swipe/Smart Lock is active).
+3. The ball's state management conflated landscape and lockscreen hide reasons, causing one to override the other.
+
+### Solution
+
+`LockscreenController` (pure event-driven):
+- **DisplayListener** — screen ON/OFF/DOZE state changes
+- **SCREEN_OFF broadcast** — immediate hide
+- **SCREEN_ON/USER_PRESENT** — trigger reconcile → `isKeyguardLocked()`
+- **Zero polling, zero battery impact**
+
+Key insight: `isKeyguardLocked()` returns correct values on HyperOS 3. There is no "OEM interference" — we were just using the wrong API and wrong receiver flags.
+
+## 3. Keyboard Avoidance (SOLVED — v1.11)
+
+### The Problem
+
+Ball overlaps the keyboard when typing. Initial approach using `AccessibilityService.windows` (TYPE_INPUT_METHOD) worked in some apps (WeChat, browser) but not others (system search, Xiaohongshu).
+
+### The Real Issue
+
+Accessibility window enumeration (`getWindows()`) is not a reliable keyboard detection API. Some app contexts don't expose the IME window to accessibility. Additionally, the ball was positioned ABOVE the IME due to missing `FLAG_ALT_FOCUSABLE_IM`.
+
+### Solution
+
+Standard Android `WindowInsets` API:
+- **`FLAG_ALT_FOCUSABLE_IM`** on the ball window — allows receiving IME insets while remaining non-focusable (official Android pattern)
+- **`OnApplyWindowInsetsListener`** — triggers 48ms debounced capture
+- **`WindowMetrics.windowInsets`** — reads full-screen IME state (not clipped by small ball window)
+- **API 35 `getBoundingRects(Type.ime())`** — precise occlusion detection for floating/split keyboards
+- **`isAvoidingKeyboard` state machine** — prevents oscillation during keyboard show/hide animation
+
+This works in ALL scenarios because WindowInsets is a WMS-level mechanism independent of accessibility event delivery.
+
+## 4. Service Persistence / Health Check (SOLVED — v1.12)
+
+### The Problem
+
+Used to have a 15-second `AlarmManager` health check as the only recurring CPU wakeup in the app.
+
+### The Real Issue
+
+The health check was redundant. It never restarted the service — only checked if accessibility was still enabled.
+
+### Solution
+
+ROM analysis (SERVICE_PERSISTENCE_SOLUTION.md) confirmed HyperOS 3 already has `BIND_AUTO_CREATE + Binder death + ActiveServices` auto-recovery. The AlarmManager was removed. All other protections retained (foreground service, autostart, battery no-restrictions, deviceidle whitelist, `onUnbind() returns true`).
+
+**Result: The entire app is now zero-polling — all components are event-driven.**
+
 
 ---
 
-## 3. `WRITE_SECURE_SETTINGS` Permission (REQUIRED)
+## 5. `WRITE_SECURE_SETTINGS` Permission (REQUIRED)
 
 ### Issue
 
@@ -90,7 +138,7 @@ On HyperOS, this requires the "USB debugging (Security settings)" toggle to be e
 
 ---
 
-## 4. Foreground Service on Android 14+ (SOLVED)
+## 6. Foreground Service on Android 14+ (SOLVED)
 
 ### Issue
 
@@ -110,7 +158,7 @@ Android 14+ requires `foregroundServiceType` declaration. Accessibility services
 
 ---
 
-## 5. Android 8.0+ Overlay Type (SOLVED)
+## 7. Android 8.0+ Overlay Type (SOLVED)
 
 ### Issue
 
@@ -122,7 +170,7 @@ Use `TYPE_ACCESSIBILITY_OVERLAY` — this window type is designed for accessibil
 
 ---
 
-## 6. Settings.Secure Key Not Persisted (SOLVED)
+## 8. Settings.Secure Key Not Persisted (SOLVED)
 
 ### Issue
 
@@ -134,7 +182,7 @@ Use `ContentObserver` (event-driven, no timing dependency) instead of polling. O
 
 ---
 
-## 7. SharedPreferences Type Mismatch (SOLVED)
+## 9. SharedPreferences Type Mismatch (SOLVED)
 
 ### Issue
 
@@ -151,7 +199,7 @@ catch (_: ClassCastException) { prefs.getString(key, "$default")?.toIntOrNull() 
 
 ---
 
-## 8. AAPT2 on ARM64 Linux (BUILD ENV)
+## 10. AAPT2 on ARM64 Linux (BUILD ENV)
 
 ### Issue
 
