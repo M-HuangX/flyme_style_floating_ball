@@ -38,7 +38,7 @@ A floating navigation ball for **Xiaomi HyperOS 3 (Android 16)**. Trigger Back, 
 - Auto-hide in landscape, on lock screen, and when keyboard appears
 - Keyboard avoidance: ball moves above keyboard when typing
 - Fully customizable (size, opacity, ratio, gesture actions)
-- Persistent foreground service with 15s health checks
+- **Zero polling** — all components event-driven. No background wakeups.
 
 ## Requirements
 
