@@ -91,8 +91,7 @@ class FloatingBallService : AccessibilityService() {
         AndroidXPreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(prefListener)
 
-        // Schedule periodic health checks to auto-restart if killed
-        HealthCheckReceiver.schedule(this)
+        // HealthCheckReceiver.schedule(this)  // DIAGNOSTIC: testing zero-polling recovery
 
         // Orientation-based auto-hide (event-driven, zero polling)
         orientationListener = object : android.view.OrientationEventListener(this) {
